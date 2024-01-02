@@ -7,12 +7,12 @@
     <title>SNAKE</title>
     <style>
         body {
-            background: #ffbf00;
+            background: #0066ff;
             text-align: center;
         }
 
         canvas {
-            border: 10px solid #f7347a;
+            border: 10px solid #00ff62;
         }
     </style>
 
@@ -32,6 +32,7 @@
         const snakeSize = 50;
         let snakePosX = 0;
         let snakePosY = (canvas.height / 2) - (snakeSize / 2);
+        let snakeSpeed = 1;
 
 
         // ctx.lineWidth = '5';
@@ -41,16 +42,23 @@
         // ctx.stroke()
 
         function gameLoop() {
+            // canvas
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            snakePosX += 0;
+            snakePosX += snakeSpeed;
             if (snakePosX > canvas.width) {
                 snakePosX = 0;
             }
+            snakePosY += snakeSpeed;
+            if (snakePosY > canvas.height) {
+                snakePosY = 0;
+            }
 
+            // player movement
             ctx.fillStyle = 'black';
             ctx.fillRect(snakePosX, snakePosY, snakeSize, snakeSize);
+
             requestAnimationFrame(gameLoop);
         }
         gameLoop()
