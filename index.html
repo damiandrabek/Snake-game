@@ -63,7 +63,7 @@
         let snakePosX = 0;
         let snakePosY = (canvas.height / 2) - (snakeSize / 2);
 
-        let snakeSpeed = 3;
+        let snakeSpeed = snakeSize;
         let snakeSpeedDirectionX = 0;
         let snakeSpeedDirectionY = 0;
 
@@ -77,7 +77,7 @@
         function gameLoop() {
             drawStuff();
             moveStuff();
-            requestAnimationFrame(gameLoop);
+            setTimeout(gameLoop, 1000/15);
         }
         gameLoop();
 
