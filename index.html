@@ -28,16 +28,20 @@
         document.addEventListener('keydown', keyPush => {
             switch(event.key){
                 case 'ArrowUp':
-                    snakePosY -= snakeSpeed;
+                    snakeSpeedDirectionX = 0;
+                    snakeSpeedDirectionY = -1;
                     break;
                 case 'ArrowDown':
-                    snakePosY += snakeSpeed;
+                    snakeSpeedDirectionX = 0;
+                    snakeSpeedDirectionY = 1;
                     break;
                 case 'ArrowLeft':
-                    snakePosX -= snakeSpeed;
+                    snakeSpeedDirectionX = -1;
+                    snakeSpeedDirectionY = 0;
                     break;
                 case 'ArrowRight':
-                    snakePosX += snakeSpeed;
+                    snakeSpeedDirectionX = 1;
+                    snakeSpeedDirectionY = 0;
                     break;
             }
         })
@@ -50,7 +54,10 @@
         const snakeSize = 50;
         let snakePosX = 0;
         let snakePosY = (canvas.height / 2) - (snakeSize / 2);
-        let snakeSpeed = 15;
+
+        let snakeSpeed = 5;
+        let snakeSpeedDirectionX = 0;
+        let snakeSpeedDirectionY = 0;
 
 
         // ctx.lineWidth = '5';
@@ -61,7 +68,7 @@
 
         function gameLoop() {
             drawStuff();
-            // moveStuff();
+            moveStuff();
             requestAnimationFrame(gameLoop);
         }
         gameLoop();
@@ -81,13 +88,16 @@
         /* MOVING */
         function moveStuff(){
             // player movement
-            snakePosX += snakeSpeed;
+            snakePosX += snakeSpeed * snakeSpeedDirectionX;
+            snakePosY += snakeSpeed * snakeSpeedDirectionY;
             if (snakePosX > canvas.width) {
                 snakePosX = 0;
-            }
-            snakePosY += snakeSpeed;
-            if (snakePosY > canvas.height) {
+            } else if(snakePosX < 0){
+                snakePosX = canvas.width;
+            } else if (snakePosY > canvas.height) {
                 snakePosY = 0;
+            } else if(snakePosY < 0){
+                snakePosY = canvas.height;
             }
         }
     </script>
