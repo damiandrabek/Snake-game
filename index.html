@@ -77,18 +77,14 @@
             if (snakePosY > canvas.height) {
                 snakePosY = 0;
             }
+
+            // player movement
+            ctx.fillStyle = 'black';
+            ctx.fillRect(snakePosX, snakePosY, snakeSize, snakeSize);
+
+            requestAnimationFrame(gameLoop);
         }
-        /* DRAWING*/
-        function drawStuff(){
-            // canvas
-            drawRectangle('white', 0, 0, canvas.width, canvas.height);
-            // player
-            drawRectangle('black', snakePosX, snakePosY, snakeSize, snakeSize);
-        }
-        function drawRectangle(color, x, y, width, height){
-            ctx.fillStyle = color;
-            ctx.fillRect(x, y, width, height);
-        }
+        gameLoop()
     </script>
 </body>
 
