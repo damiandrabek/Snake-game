@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SNAKE</title>
+    <title>BLOODY SNAKE 🐍</title>
     <style>
         body {
             background: #0066ff;
@@ -18,7 +18,7 @@
 
 </head>
 
-<body>
+<body id="body">
     <canvas width="1000" height="1000">
 
     </canvas>
@@ -53,27 +53,26 @@
                     break;
             }
         });
-
         // canvas
         const canvas = document.querySelector('canvas')
         const ctx = canvas.getContext('2d')
+        const canvasColor = 'white';
 
         // player
-        const snakeSize = 50;
+        const snakeSize = 100;
+        const snakeColor = 'black';
         let snakePosX = 0;
-        let snakePosY = (canvas.height / 2) - (snakeSize / 2);
+        let snakePosY = canvas.height / 2 ;
 
         let snakeSpeed = snakeSize;
         let snakeSpeedDirectionX = 0;
         let snakeSpeedDirectionY = 0;
 
+        // grid tiles
+        const tileCountX = canvas.width / snakeSize;
+        const tileCountY = canvas.height / snakeSize;
 
-        // ctx.lineWidth = '5';
-        // ctx.strokeStyle = 'black';
-        // ctx.moveTo(300, 100);
-        // ctx.lineTo(300,400);
-        // ctx.stroke()
-
+        // MAIN GAME LOOP
         function gameLoop() {
             drawStuff();
             moveStuff();
@@ -84,13 +83,22 @@
         /* DRAWING */
         function drawStuff(){
             //canvas
-            drawRectangle('white', 0, 0, canvas.width, canvas.height)
+            drawRectangle("#0066ff", 0, 0, canvas.width, canvas.height);
+            //grid
+            drawGrid();
             //player
-            drawRectangle('black', snakePosX, snakePosY, snakeSize, snakeSize)
+            drawRectangle(snakeColor, snakePosX, snakePosY, snakeSize, snakeSize);
         }
         function drawRectangle(color, x, y, width, height,){
             ctx.fillStyle = color;
             ctx.fillRect(x, y, width, height);
+        }
+        function drawGrid(){
+            for (let i = 0; i < tileCountX; i++) {
+                for (let j = 0; j < tileCountY; j++) {
+                    drawRectangle('white', snakeSize * i, snakeSize * j, snakeSize - 1, snakeSize - 1);
+                }
+            }
         }
 
         /* MOVING */
@@ -99,17 +107,27 @@
             snakePosX += snakeSpeed * snakeSpeedDirectionX;
             snakePosY += snakeSpeed * snakeSpeedDirectionY;
 
-            if(snakePosX > canvas.width) {
+            if(snakePosX > canvas.width-snakeSize) {
                 snakePosX = 0;
-            } else if(snakePosX < -snakeSize){
+            }
+            if(snakePosX < 0){
                 snakePosX = canvas.width;
+            }
 
-            } else if (snakePosY > canvas.height) {
+            if (snakePosY > canvas.height-snakeSize) {
                 snakePosY = 0;
-            } else if(snakePosY < -snakeSize){
+            }
+            if(snakePosY < 0){
                 snakePosY = canvas.height;
             }
         }
+
+
+        // ctx.lineWidth = '5';
+            // ctx.strokeStyle = 'black';
+            // ctx.moveTo(300, 100);
+            // ctx.lineTo(300,400);
+            // ctx.stroke()
     </script>
 </body>
 
