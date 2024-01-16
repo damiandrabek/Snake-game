@@ -24,6 +24,24 @@
     </canvas>
 
     <script>
+        // listeners
+        document.addEventListener('keydown', keyPush => {
+            switch(event.key){
+                case 'ArrowUp':
+                    snakePosY -= snakeSpeed;
+                    break;
+                case 'ArrowDown':
+                    snakePosY += snakeSpeed;
+                    break;
+                case 'ArrowLeft':
+                    snakePosX -= snakeSpeed;
+                    break;
+                case 'ArrowRight':
+                    snakePosX += snakeSpeed;
+                    break;
+            }
+        })
+
         // canvas
         const canvas = document.querySelector('canvas')
         const ctx = canvas.getContext('2d')
@@ -32,7 +50,7 @@
         const snakeSize = 50;
         let snakePosX = 0;
         let snakePosY = (canvas.height / 2) - (snakeSize / 2);
-        let snakeSpeed = 1;
+        let snakeSpeed = 15;
 
 
         // ctx.lineWidth = '5';
@@ -42,26 +60,35 @@
         // ctx.stroke()
 
         function gameLoop() {
-            // canvas
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            drawStuff();
+            // moveStuff();
+            requestAnimationFrame(gameLoop);
+        }
+        gameLoop();
 
+        /* MOVING*/
+        function moveStuff(){
+            // player movement
             snakePosX += snakeSpeed;
             if (snakePosX > canvas.width) {
                 snakePosX = 0;
             }
-            snakePosY += snakeSpeed;
+            // snakePosY += snakeSpeed;
             if (snakePosY > canvas.height) {
                 snakePosY = 0;
             }
-
-            // player movement
-            ctx.fillStyle = 'black';
-            ctx.fillRect(snakePosX, snakePosY, snakeSize, snakeSize);
-
-            requestAnimationFrame(gameLoop);
         }
-        gameLoop()
+        /* DRAWING*/
+        function drawStuff(){
+            // canvas
+            drawRectangle('white', 0, 0, canvas.width, canvas.height);
+            // player
+            drawRectangle('black', snakePosX, snakePosY, snakeSize, snakeSize);
+        }
+        function drawRectangle(color, x, y, width, height){
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, width, height);
+        }
     </script>
 </body>
 
