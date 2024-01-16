@@ -28,23 +28,31 @@
         document.addEventListener('keydown', keyPush => {
             switch(event.key){
                 case 'ArrowUp':
-                    snakeSpeedDirectionX = 0;
-                    snakeSpeedDirectionY = -1;
+                    if(snakeSpeedDirectionY != 1){
+                        snakeSpeedDirectionX = 0;
+                        snakeSpeedDirectionY = -1;
+                    }
                     break;
                 case 'ArrowDown':
-                    snakeSpeedDirectionX = 0;
-                    snakeSpeedDirectionY = 1;
+                    if(snakeSpeedDirectionY != -1){
+                        snakeSpeedDirectionX = 0;
+                        snakeSpeedDirectionY = 1;
+                    }
                     break;
                 case 'ArrowLeft':
-                    snakeSpeedDirectionX = -1;
-                    snakeSpeedDirectionY = 0;
+                    if(snakeSpeedDirectionX != 1){
+                        snakeSpeedDirectionX = -1;
+                        snakeSpeedDirectionY = 0;
+                    }
                     break;
                 case 'ArrowRight':
-                    snakeSpeedDirectionX = 1;
-                    snakeSpeedDirectionY = 0;
+                    if(snakeSpeedDirectionX != -1){
+                        snakeSpeedDirectionX = 1;
+                        snakeSpeedDirectionY = 0;
+                    }
                     break;
             }
-        })
+        });
 
         // canvas
         const canvas = document.querySelector('canvas')
@@ -55,7 +63,7 @@
         let snakePosX = 0;
         let snakePosY = (canvas.height / 2) - (snakeSize / 2);
 
-        let snakeSpeed = 5;
+        let snakeSpeed = 3;
         let snakeSpeedDirectionX = 0;
         let snakeSpeedDirectionY = 0;
 
@@ -90,13 +98,15 @@
             // player movement
             snakePosX += snakeSpeed * snakeSpeedDirectionX;
             snakePosY += snakeSpeed * snakeSpeedDirectionY;
-            if (snakePosX > canvas.width) {
+
+            if(snakePosX > canvas.width) {
                 snakePosX = 0;
-            } else if(snakePosX < 0){
+            } else if(snakePosX < -snakeSize){
                 snakePosX = canvas.width;
+
             } else if (snakePosY > canvas.height) {
                 snakePosY = 0;
-            } else if(snakePosY < 0){
+            } else if(snakePosY < -snakeSize){
                 snakePosY = canvas.height;
             }
         }
