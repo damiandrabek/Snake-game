@@ -15,7 +15,7 @@
             border: 10px solid #00ff62;
         }
         h1{
-            margin-top: 0;
+            margin-top: 10;
             font-size: 4em;
             font-family: 'Avenir Next', Verdana;
             font-weight: bold;
@@ -184,9 +184,22 @@
             }
         }
         function resetFood(){
+            // nowhere to go -> game over
+            if(snakeLength === tileCountX * tileCountY){
+                gameOver;
+            }
             foodPosX = Math.floor(Math.random() * tileCountX) * tileSize;
             foodPosY = Math.floor(Math.random() * tileCountY) * tileSize;
+            // don't spawn food on the snake's head
+            if(foodPosX === snakePosX && foodPosY === snakePosY){
+                resetFood();
+            }
+            // dont' spawn food on any snake's part
+            if(tail.some(snakePart => snakePart.x === foodPosX && snakePart.y === foodPosY)){
+                resetFood();
+            }
         }
+        // keyboard restarts game
         function gameOver(){
             title.innerHTML = `💀 <strong> ${score} </strong> 💀`;
             gameIsRunning = false;
