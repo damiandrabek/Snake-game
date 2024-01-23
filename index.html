@@ -14,14 +14,23 @@
         canvas {
             border: 10px solid #00ff62;
         }
+        h1{
+            margin-top: 0;
+            font-size: 4em;
+            font-family: 'Avenir Next', Verdana;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: -10px;
+        }
     </style>
 
 </head>
 
 <body id="body">
-    <canvas width="1000" height="1000">
-
-    </canvas>
+    <canvas width="1000" height="1000"></canvas>
+    <h1>
+        0
+    </h1>
 
     <script>
         // listeners
@@ -54,9 +63,9 @@
             }
         });
         // canvas
-        const canvas = document.querySelector('canvas')
-        const ctx = canvas.getContext('2d')
-        const canvasColor = 'white';
+        const canvas = document.querySelector('canvas');
+        const title = document.querySelector('h1');
+        const ctx = canvas.getContext('2d');
 
         // player
         const snakeSize = 50;
@@ -77,6 +86,10 @@
         let foodPosX = 0;
         let foodPosY = 0;
         const foodColor = 'orange';
+
+        // game
+        let score = 0;
+
 
         // MAIN GAME LOOP
         function gameLoop() {
@@ -123,7 +136,6 @@
             if(snakePosX < 0){
                 snakePosX = canvas.width;
             }
-
             if (snakePosY > canvas.height-snakeSize) {
                 snakePosY = 0;
             }
@@ -132,6 +144,7 @@
             }
             // food collision
             if(snakePosX == foodPosX && snakePosY == foodPosY){
+                title.textContent = ++score;
                 resetFood();
             }
         }
