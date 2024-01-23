@@ -20,7 +20,7 @@
             font-family: 'Avenir Next', Verdana;
             font-weight: bold;
             color: #ffffff;
-            letter-spacing: -10px;
+            letter-spacing: -5 px;
         }
     </style>
 
@@ -67,35 +67,39 @@
         const title = document.querySelector('h1');
         const ctx = canvas.getContext('2d');
 
+        // game
+        const fps = 15;
+        const tileSize = 50;
+        let score = 0;
+
+        // grid tiles
+        const tileColor = 'white';
+        const tileCountX = canvas.width / tileSize;
+        const tileCountY = canvas.height / tileSize;
+
         // player
-        const snakeSize = 50;
         const snakeColor = 'black';
         let snakePosX = 0;
         let snakePosY = canvas.height / 2 ;
 
-        let snakeSpeed = snakeSize;
+        let snakeSpeed = tileSize;
         let snakeSpeedDirectionX = 0;
         let snakeSpeedDirectionY = 0;
 
-        // grid tiles
-        const tileColor = 'white';
-        const tileCountX = canvas.width / snakeSize;
-        const tileCountY = canvas.height / snakeSize;
+        const tailColor = '#4a4a4a';
+        let tail = [];
+        let snakeLength = 1;
 
         // food
         let foodPosX = 0;
         let foodPosY = 0;
         const foodColor = 'orange';
 
-        // game
-        let score = 0;
-
-
         // MAIN GAME LOOP
         function gameLoop() {
             moveStuff();
             drawStuff();
-            setTimeout(gameLoop, 1000/15);
+            setTimeout(gameLoop, 1000/fps);
         }
         resetFood();
         gameLoop();
@@ -107,9 +111,13 @@
             //grid
             drawGrid();
             //food
-            drawRectangle(foodColor, foodPosX, foodPosY, snakeSize, snakeSize);
+            drawRectangle(foodColor, foodPosX, foodPosY, tileSize, tileSize);
+            //tail
+            tail.forEach(snakePart =>
+                drawRectangle(tailColor, snakePart.x, snakePart.y, tileSize, tileSize)
+            )
             //player
-            drawRectangle(snakeColor, snakePosX, snakePosY, snakeSize, snakeSize);
+            drawRectangle(snakeColor, snakePosX, snakePosY, tileSize, tileSize);    
         }
         function drawRectangle(color, x, y, width, height,){
             ctx.fillStyle = color;
@@ -118,7 +126,7 @@
         function drawGrid(){
             for (let i = 0; i < tileCountX; i++) {
                 for (let j = 0; j < tileCountY; j++) {
-                    drawRectangle(tileColor, snakeSize * i, snakeSize * j, snakeSize - 1, snakeSize - 1);
+                    drawRectangle(tileColor, tileSize * i, tileSize * j, tileSize - 1, tileSize - 1);
                 }
             }
         }
@@ -130,27 +138,31 @@
             snakePosY += snakeSpeed * snakeSpeedDirectionY;
 
             // wall collision
-            if(snakePosX > canvas.width-snakeSize) {
+            if(snakePosX > canvas.width-tileSize) {
                 snakePosX = 0;
             }
             if(snakePosX < 0){
                 snakePosX = canvas.width;
             }
-            if (snakePosY > canvas.height-snakeSize) {
+            if (snakePosY > canvas.height-tileSize) {
                 snakePosY = 0;
             }
             if(snakePosY < 0){
                 snakePosY = canvas.height;
             }
+            // tail
+            tail.push({x: snakePosX, y: snakePosY,});
+            tail = tail.slice(-1 * snakeLength);
             // food collision
             if(snakePosX == foodPosX && snakePosY == foodPosY){
                 title.textContent = ++score;
+                snakeLength++;
                 resetFood();
             }
         }
         function resetFood(){
-            foodPosX = Math.floor(Math.random() * tileCountX) * snakeSize;
-            foodPosY = Math.floor(Math.random() * tileCountY) * snakeSize;
+            foodPosX = Math.floor(Math.random() * tileCountX) * tileSize;
+            foodPosY = Math.floor(Math.random() * tileCountY) * tileSize;
         }
 
         // ctx.lineWidth = '5';
