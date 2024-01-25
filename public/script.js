@@ -132,24 +132,28 @@ function resetFood(){
 // KEYBOARD
 function keyPush(event){
     switch(event.key){
+        case 'w':
         case 'ArrowUp':
             if(snakeSpeedDirectionY != 1){
                 snakeSpeedDirectionX = 0;
                 snakeSpeedDirectionY = -1;
             }
             break;
+        case 's':
         case 'ArrowDown':
             if(snakeSpeedDirectionY != -1){
                 snakeSpeedDirectionX = 0;
                 snakeSpeedDirectionY = 1;
             }
             break;
+        case 'a':
         case 'ArrowLeft':
             if(snakeSpeedDirectionX != 1){
                 snakeSpeedDirectionX = -1;
                 snakeSpeedDirectionY = 0;
             }
             break;
+        case 'd':
         case 'ArrowRight':
             if(snakeSpeedDirectionX != -1){
                 snakeSpeedDirectionX = 1;
@@ -159,7 +163,7 @@ function keyPush(event){
         default:
             // restart game
             if(!gameIsRunning) location.reload();
-            break
+            break;
     }
 }
 // keyboard restarts game
