@@ -1,4 +1,11 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/*  */
+
+#body {
     background: #0066ff;
     text-align: center;
 }
@@ -7,7 +14,7 @@ canvas {
     border: 10px solid #00ff62;
 }
 
-h1 {
+#score {
     margin-top: 10;
     font-size: 4em;
     font-family: 'Avenir Next', Verdana;
@@ -16,7 +23,7 @@ h1 {
     letter-spacing: -5 px;
 }
 
-h1 strong {
+#score strong {
     font-size: 1.35em;
     display: inline-block;
     margin: 0.35em;
