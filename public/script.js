@@ -2,8 +2,9 @@
 document.addEventListener('keydown', keyPush);
 // canvas
 const canvas = document.querySelector('canvas');
-const title = document.querySelector('h1');
 const ctx = canvas.getContext('2d');
+const scoreTitle = document.querySelector('h1');
+const yourScoreTitle = document.getElementById('yourScore')
 
 // game
 let gameIsRunning = true;
@@ -107,7 +108,7 @@ function moveStuff(){
     tail = tail.slice(-1 * snakeLength);
     // food collision
     if(snakePosX === foodPosX && snakePosY === foodPosY){
-        title.textContent = ++score;
+        scoreTitle.textContent = ++score;
         snakeLength++;
         resetFood();
     }
@@ -163,6 +164,7 @@ function keyPush(event){
 }
 // keyboard restarts game
 function gameOver(){
-    title.innerHTML = `💀 <strong> ${score} </strong> 💀`;
+    scoreTitle.innerHTML = `💀 <strong> ${score} </strong> 💀`;
+    yourScoreTitle.textContent = '';
     gameIsRunning = false;
 }

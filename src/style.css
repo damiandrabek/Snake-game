@@ -2,29 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/*  */
-
-#body {
-    background: #0066ff;
-    text-align: center;
-}
-
-canvas {
-    border: 10px solid #00ff62;
-}
-
-#score {
-    margin-top: 10;
-    font-size: 4em;
-    font-family: 'Avenir Next', Verdana;
-    font-weight: bold;
-    color: #ffffff;
-    letter-spacing: -5 px;
-}
-
-#score strong {
+#title strong{
     font-size: 1.35em;
     display: inline-block;
-    margin: 0.35em;
+    margin: 0.25em;
 }

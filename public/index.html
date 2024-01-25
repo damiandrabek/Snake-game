@@ -7,11 +7,21 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body id="body" class="text-center bg-sky-500">
-    <canvas width="1000" height="1000"></canvas>
-    <h1 id="score" class="bg-black">
-        0
-    </h1>
+<body class="bg-blue-700 text-center">
+    <header>
+        <p class="text-white font-sans font-extrabold text-7xl mt-6">
+            Welcome to Snake! 👋
+        </p>
+    </header>
+    <main>
+        <canvas width="1000" height="1000" class="border-8 border-emerald-400 m-auto mt-4"></canvas>
+        <p id="yourScore" class="text-white font-sans font-extrabold text-5xl mt-5 inline-block mr-6">
+            Your score:
+        </p>
+        <h1 id="title" class="text-white text-7xl font-bold font-sans mt-5 inline-block">
+            0
+        </h1>
+    </main>
 </body>
 
 <script src="script.js"></script>
